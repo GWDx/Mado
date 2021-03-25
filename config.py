@@ -13,7 +13,7 @@ def writeFile(id, suffix, code):
     if not folder:
         os.makedirs(path)
     
-    now = time.strftime('%Y-%m-%d %H-%M-%S',time.localtime(time.time()))     
+    now = time.strftime('%Y-%m-%d-%H-%M-%S',time.localtime(time.time()))     
     fileName = path + '/' + str(now) + suffix
     if os.path.exists(fileName):
         raise NameError('Too Frequent')
@@ -24,10 +24,20 @@ def writeFile(id, suffix, code):
     return(fileName)
 
 
+import subprocess
+
 def runCMD(cmd):
-    result = os.popen(cmd)
-    ans = result.read().strip("\n")
+    ret = subprocess.run(cmd, timeout = 15, encoding = "utf-8", shell=True,
+                        stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+    ans = ret.stdout.strip('\n')
+    if ret.stderr != '':
+        ans = '####\n' + ret.stderr.strip('\n') + '\n####\n' + ret.stdout
+    if ret.returncode !=0 :
+        ans = '>> returncode = ' + str(ret.returncode) + '\n' + ans
+    if ans == '':
+        ans = '>> returncode = ' + str(ret.returncode)
     return(ans)
+
 
 loop = asyncio.get_event_loop()
 
@@ -44,13 +54,15 @@ app = GraiaMiraiApplication(
 
 
 rawHelp = [
-    [1, "epy" , "ExecutePython"],
-    [2, "ema" , "ExecuteMathematica"],
-    [3, "help" , "帮助"],
-    [4, "pip install" , "Python 库安装"]
+    [1, "epy" , "ExecutePython3"],
+    [2-1, "ema [-t]" , "ExecuteMathematica 文本形式"],
+    [2-2, "ema -p", "以图片格式返回"],
+    [3, "pip install" , "Python 库安装"],
+    [4, "help" , "帮助"] # ,
+    # [5, "about", "关于"]
 ]
 
-help = '\n'.join(['(' + str(l[0]) + ') ' + l[1] + '  : ' + l[2] for l in rawHelp])
+help = '\n'.join([str(l[0]) + '. ' + l[1] + '  : ' + l[2] for l in rawHelp])
 
 
 def regularQ(firstLine,full,kernel):
@@ -62,4 +74,6 @@ def regularQ(firstLine,full,kernel):
 
 
 if __name__=='__main__':
-    print(regularQ('epy','python','py'))
+    # print(regularQ('epy','python','py'))
+    ans = runCMD('python testPython.txt')
+    print(ans)
