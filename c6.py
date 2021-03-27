@@ -1,7 +1,7 @@
-from graia.application import GraiaMiraiApplication
-from graia.application.message.chain import MessageChain
 from graia.application.friend import Friend
 from graia.application.group import Group, Member
+from graia.application import GraiaMiraiApplication
+from graia.application.message.chain import MessageChain
 from graia.application.message.elements.internal import Plain
 
 from kernel import *
@@ -14,7 +14,7 @@ async def friend_message_listenerasync(
     app: GraiaMiraiApplication, 
     friend: Friend
 ):
-    command = message.asDisplay()
+    command = normalize(message)
     result = kernel(command, str(friend.id))
     if result != 0:
         try:
@@ -30,7 +30,7 @@ async def group_message_handler(
     app: GraiaMiraiApplication, 
     group: Group, member: Member
 ):
-    command = message.asDisplay()
+    command = normalize(message)
     result = kernel(command, str(group.id) + '-' + str(member.id))
     if result != 0:
         try:

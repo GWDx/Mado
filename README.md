@@ -1,10 +1,11 @@
 # mado
 
-> 基于 mirai, Graia 的 QQ 机器人
+基于 mirai, Graia 的 QQ 机器人
 
 ### 特点
 
 + 可以执行 python3 和 Mathematica 代码（通过调用 python 和 wolframscript）
++ 支持图片格式输入 Mathematica 代码，支持 PNG/GIF 输出 Mathematica 计算结果
 + 可以给出错误提示，有执行时间限制
 + 支持好友访问和群访问
 
@@ -17,20 +18,21 @@
 
 ### (1)
 
-  | 指令                      | 含义                             |
-  |:--------------------------|:---------------------------------|
-  | **epy** *opts*  \n *code* | ExecutePython3                   |
-  | **ema** *opts*  \n *code* | ExecuteMathematica               |
+  | 指令                       |含义                          |
+  |:--------------------------|:----------------------------|
+  | **epy** *opts*  \n *code* | ExecutePython3              |
+  | **ema** *opts*  \n *code* | ExecuteMathematica          |
   | **esh** *opts*  \n *code* | ExecuteBash（需要权限，存在漏洞）|
-  | **pip install** *opts*    | Python 库安装                    |
-  | **help**                  | 帮助                             |
+  | **pip install** *opts*    | Python 库安装                |
+  | **help**                  | 帮助                         |
 
 ### (2)
 
-  |选项              |含义                                    |
-  |:-----------------|:---------------------------------------|
-  | **-p**           |以图片格式返回（**ema** 专用）          |
-  | **-t** *seconds* |修改时间限制（默认 15 秒，需要权限）    |
+  |选项               |含义                            |
+  |:-----------------|:------------------------------|
+  | **-p**           |以 PNG 格式返回（**ema** 专用）    |
+  | **-g**           |以 GIF 格式返回（**ema** 专用）    |
+  | **-t** *seconds* |修改时间限制（默认 15 秒，需要权限）  |
   | **-o**           |不对输出字符数及行数进行限制（需要权限）|
 
 ## 示例
@@ -70,16 +72,17 @@ f[100]
 + (2) 图像格式输出
 ```
 ema -p
-PolarPlot[Cos[5t/3],{t,0,6Pi}]
+PolarPlot[Sin[5t/3],{t,0,6Pi},ColorFunction->(Hue@#4 &)]
 ```
-结果为：![](./PolarPlot.png)
+结果为：
+![](https://github.com/GWDx/mado/blob/master/ema%20-p.png)
 
 
 ## 作出贡献
 
-> 欢迎提出建议，欢迎 pull request
+欢迎提出建议，欢迎 pull request
 
-> 项目地址：<https://github.com/GWDx/mado>
+项目地址：<https://github.com/GWDx/mado>
 
 
 ## 关于协议

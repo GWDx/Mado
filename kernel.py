@@ -1,15 +1,9 @@
-import time
 from graia.application.message.elements.internal import Plain, Image
+
+import time
 
 from functions import *
 from initialize import help
-
-
-def code(command):
-    return command[(command + '\n').find('\n'):].strip('\n')
-
-def options(firstLine):
-    return firstLine[(firstLine + ' ').find(' '):].strip(' ')
 
 
 def kernel(fullCommand, id):
@@ -28,42 +22,39 @@ def kernel(fullCommand, id):
         elif (regularQ(firstLine, "mathematica", "ma") or 
               regularQ2(firstLine, "mma") or regularQ2(firstLine, "wl")):
             fileName = writeFile(id, ".wl", code(command))
-            coreCMD = 'wolframscript -print all -f "' + fileName + '"'
 
             firstOption = options(firstLine + '..')[:2]
             if firstOption == '-p':
-                imgName = fileName[:-3] + '.png'
-                runCMD(coreCMD + ' -format PNG > "' + imgName + '"', id, options(firstLine))
-                print('>> ', imgName)
-                time.sleep(2)
-                result = Image.fromLocalFile(imgName)
+                result = exportPicture(fileName, 'PNG', firstLine)
+            if firstOption == '-g':
+                result = exportPicture(fileName, 'GIF', firstLine)
             else:
-                ans = runCMD(coreCMD, id, options(firstLine))
+                ans = runCMD(coreCMD(fileName), id, options(firstLine))
+                
+        # pip install
+        elif firstLine.startswith("pip install"):
+            ans = runCMD('pip3 ' + options(firstLine), id, '')
         
         # ExecuteBash (esh)
         elif regularQ2(firstLine, "bash") or regularQ2(firstLine, "sh"):
             if permissionQ(id):
                 fileName = writeFile(id, ".sh", code(command))
                 ans = runCMD('bash "' + fileName + '"', id, options(firstLine))
-                
-        # pip install
-        elif firstLine.startswith("pip install"):
-            ans = runCMD('pip3 ' + options(firstLine), id, '')
         
         # help
-        elif firstLine.startswith("help"):
-            ans = help
+        elif firstLine == "help":
+            ans = help.strip('\n')
 
         else:
             return 0
 
-        if len(ans) > 2000 and options(firstLine).find('-o') < 0:
+        if len(ans) > 1000 and options(firstLine).find('-o') < 0:
             if permissionQ(id):
-                raise RuntimeError('Length > 2000')
+                raise RuntimeError('Length > 1000')
 
-        if len(ans.split('\n')) > 50 and options(firstLine).find('-o') < 0:
+        if len(ans.split('\n')) > 40 and options(firstLine).find('-o') < 0:
             if permissionQ(id):
-                raise RuntimeError('Rows > 50')
+                raise RuntimeError('Rows > 40')
         
     except Exception as ex:
         ans = str(ex)
@@ -72,6 +63,27 @@ def kernel(fullCommand, id):
     # print(ans)
     if result == 1:
         result = Plain(ans)
+    return result
+
+
+
+def code(command):
+    return command[(command + '\n').find('\n'):].strip('\n')
+
+def options(firstLine):
+    return firstLine[(firstLine + ' ').find(' '):].strip(' ')
+
+
+def coreCMD(fileName):
+    return 'wolframscript -print all -f "' + fileName + '"'
+
+def exportPicture(fileName, suffix, firstLine):
+    imgName = fileName[:-3] + '.' + suffix.lower()
+    CMD = coreCMD(fileName) + ' -format ' + suffix + ' > "' + imgName + '"'
+    runCMD(CMD, id, options(firstLine))
+    print('>> ', imgName)
+    time.sleep(2)
+    result = Image.fromLocalFile(imgName)
     return result
 
 
