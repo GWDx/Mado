@@ -17,11 +17,12 @@ def normalize(message):
             if 'Image' in str(e.type):
                 valid.append(Plain('Import["' + str(e.url) + '"]'))
         ans = MessageChain.create(valid).asDisplay()
-        return ans
     
     except:
-        raise RuntimeError('Interpret Error')
+        ans = message.asDisplay()
+        # raise RuntimeError('Interpret Error')
     
+    return ans
 
 
 loop = asyncio.get_event_loop()

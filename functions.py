@@ -23,7 +23,7 @@ def writeFile(id, suffix, code):
     f = open(fileName, 'w', encoding='utf-8')
     f.write(code + "\n")
     f.close()
-    return(fileName)
+    return fileName
 
 
 def runCMD(cmd, id, options):
@@ -39,11 +39,9 @@ def runCMD(cmd, id, options):
     ans = ret.stdout.strip('\n')
     if ret.stderr != '':
         ans = '####\n' + ret.stderr.strip('\n') + '\n####\n' + ret.stdout
-    if ret.returncode != 0 or random.randint(1,100) == 1:
+    if ret.returncode != 0 or ans == '' or random.randint(1,100) == 1:
         ans = '>> returncode = ' + str(ret.returncode) + '\n' + ans
-    if ans == '':
-        ans = '>> returncode = ' + str(ret.returncode)
-    return(ans)
+    return ans.strip('\n')
 
 
 def regularQ2(firstLine, kernel):
@@ -64,9 +62,9 @@ def permissionQ(id):
 
     if id.split('-')[-1] in friends:
         return True
-    elif id.find('-')<0:
+    elif not '-' in id:
         f = open('temp/permission.txt', 'a', encoding='utf-8')
-        f.write(id)
+        f.write(id + '\n')
         f.close()
         return True
     

@@ -22,12 +22,12 @@ def kernel(fullCommand, id):
         elif (regularQ(firstLine, "mathematica", "ma") or 
               regularQ2(firstLine, "mma") or regularQ2(firstLine, "wl")):
             fileName = writeFile(id, ".wl", code(command))
-
+            
             firstOption = options(firstLine + '..')[:2]
             if firstOption == '-p':
-                result = exportPicture(fileName, 'PNG', firstLine)
+                result = exportPicture(fileName, 'PNG', firstLine, id)
             if firstOption == '-g':
-                result = exportPicture(fileName, 'GIF', firstLine)
+                result = exportPicture(fileName, 'GIF', firstLine, id)
             else:
                 ans = runCMD(coreCMD(fileName), id, options(firstLine))
                 
@@ -77,7 +77,7 @@ def options(firstLine):
 def coreCMD(fileName):
     return 'wolframscript -print all -f "' + fileName + '"'
 
-def exportPicture(fileName, suffix, firstLine):
+def exportPicture(fileName, suffix, firstLine, id):
     imgName = fileName[:-3] + '.' + suffix.lower()
     CMD = coreCMD(fileName) + ' -format ' + suffix + ' > "' + imgName + '"'
     runCMD(CMD, id, options(firstLine))
