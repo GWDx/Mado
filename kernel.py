@@ -32,6 +32,13 @@ def kernel(fullCommand, id):
             else:
                 ans = runCMD(mathematicaCMD(fileName), id, options(firstLine))
                 
+        #ecpp
+        elif regularQ(firstLine, "cpp", "cp") or regularQ(firstLine, "c++", "c+"):
+            fileName = writeFile(id, ".cpp", code(command))
+            outName = fileName.split('.')[0] + '.out'
+            cppCMD = 'g++ -o ' + outName + ' ' + fileName + ' && ./' + outName 
+            ans = runCMD(cppCMD, id, options(firstLine))
+
         # pip install
         elif firstLine.startswith("pip install"):
             ans = runCMD('pip3 ' + options(firstLine), id, '')
@@ -84,7 +91,7 @@ def mathematicaCMD(fileName):
     return 'wolframscript -print all -f "' + fileName + '"'
 
 def exportPicture(fileName, suffix, firstLine, id):
-    imgName = fileName[:-3] + '.' + suffix.lower()
+    imgName = fileName.split('.')[0] + '.' + suffix.lower()
     CMD = mathematicaCMD(fileName) + ' -format ' + suffix + ' > "' + imgName + '"'
     runCMD(CMD, id, options(firstLine))
     print('>> ', imgName)
