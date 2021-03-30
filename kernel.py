@@ -19,17 +19,18 @@ def kernel(fullCommand, id):
             ans = runCMD('python3 "' + fileName + '"', id, options(firstLine))
 
         # ExecuteMathematica (ema)
+        # 好友仅 '-p' 也可输出图片
         elif (regularQ(firstLine, "mathematica", "ma") or 
-              regularQ2(firstLine, "mma") or regularQ2(firstLine, "wl")):
+              regularQ2(firstLine, "mma") or regularQ2(firstLine, "wl") or
+              (not '-' in id) and ('-p' in firstLine or '-g' in firstLine)):
             fileName = writeFile(id, ".wl", code(command))
             
-            firstOption = options(firstLine + '..')[:2]
-            if firstOption == '-p':
+            if '-p' in firstLine:
                 result = exportPicture(fileName, 'PNG', firstLine, id)
-            if firstOption == '-g':
+            elif '-g' in firstLine:
                 result = exportPicture(fileName, 'GIF', firstLine, id)
             else:
-                ans = runCMD(coreCMD(fileName), id, options(firstLine))
+                ans = runCMD(mathematicaCMD(fileName), id, options(firstLine))
                 
         # pip install
         elif firstLine.startswith("pip install"):
@@ -45,15 +46,20 @@ def kernel(fullCommand, id):
         elif firstLine == "help":
             ans = help.strip('\n')
 
+        # 好友默认执行 Mathematica
+        elif not '-' in id:
+            fileName = writeFile(id, ".wl", command)
+            ans = runCMD(mathematicaCMD(fileName), id, options(firstLine))
+
         else:
             return 0
-
-        if len(ans) > 1000 and options(firstLine).find('-o') < 0:
-            if permissionQ(id):
+        
+        if len(ans) > 1000:
+            if not ('-o' in firstLine and permissionQ(id)):
                 raise RuntimeError('Length > 1000')
 
-        if len(ans.split('\n')) > 40 and options(firstLine).find('-o') < 0:
-            if permissionQ(id):
+        if len(ans.split('\n')) > 40:
+            if not ('-o' in firstLine and permissionQ(id)):
                 raise RuntimeError('Rows > 40')
         
     except Exception as ex:
@@ -74,12 +80,12 @@ def options(firstLine):
     return firstLine[(firstLine + ' ').find(' '):].strip(' ')
 
 
-def coreCMD(fileName):
+def mathematicaCMD(fileName):
     return 'wolframscript -print all -f "' + fileName + '"'
 
 def exportPicture(fileName, suffix, firstLine, id):
     imgName = fileName[:-3] + '.' + suffix.lower()
-    CMD = coreCMD(fileName) + ' -format ' + suffix + ' > "' + imgName + '"'
+    CMD = mathematicaCMD(fileName) + ' -format ' + suffix + ' > "' + imgName + '"'
     runCMD(CMD, id, options(firstLine))
     print('>> ', imgName)
     time.sleep(2)

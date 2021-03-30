@@ -3,7 +3,7 @@
 基于 mirai, Graia 的 QQ 机器人
 
 > 项目名称来源于《[魔法少女小圆](https://mzh.moegirl.org.cn/%E9%AD%94%E6%B3%95%E5%B0%91%E5%A5%B3%E5%B0%8F%E5%9C%86)》 [鹿目**圆**香](https://mzh.moegirl.org.cn/%E9%B9%BF%E7%9B%AE%E5%9C%86)（Kaname **Mado**ka）。
-> **Ma**do**ka**与 **Mat**hemati**ca** 的最长公共子序列长度竟然达到了 4（**d** 与 **t**，**k** 与 **c** 各记为半个公共字符长度），这种事绝对很奇怪啊。
+> <i><b>Ma</b>d</i>o<b><i>ka</i></b> 与 <i><b>Ma</b>t</i>hemati<b><i>ca</i></b> 的最长公共子序列长度竟然达到了 4，这种事绝对很奇怪啊。
 > 
 > ~~圆：我被绑架到中国科大当 bot 样本。~~
 
@@ -20,15 +20,14 @@
 
 ## 指令及选项
 
-### 指令
+### 主要指令
 
-| 指令                        | 含义                     |
-|:------------------------- |:---------------------- |
-| **epy** *opts*  \n *code* | ExecutePython3         |
-| **ema** *opts*  \n *code* | ExecuteMathematica     |
-| **esh** *opts*  \n *code* | ExecuteBash（需要权限，存在漏洞） |
-| **pip install** *opts*    | Python 库安装             |
-| **help**                  | 帮助                     |
+| 指令                        | 含义                 |
+|:------------------------- |:------------------ |
+| **epy** *opts*  \n *code* | ExecutePython3     |
+| **ema** *opts*  \n *code* | ExecuteMathematica |
+| **pip install** *opts*    | Python 库安装         |
+| **help**                  | 帮助                 |
 
 ### 选项
 
@@ -52,7 +51,7 @@ for i in range(5):
 
 结果为：
 
-> 1
+> 1  
 > 4
 
 ### **ema** 的使用
@@ -69,7 +68,7 @@ f[100]
 
 结果为：
 
-> {1, 1, 2, 3, 5, 8, 13, 21, 34, 55}
+> {1, 1, 2, 3, 5, 8, 13, 21, 34, 55}  
 > 354224848179261915075
 
 #### 图像格式输出
@@ -86,11 +85,11 @@ PolarPlot[Sin[5t/3],{t,0,3Pi},ColorFunction->(Hue[#3]&),ImageSize->{900,900}]
 ## 作出贡献
 
 欢迎提出建议，欢迎 pull request  
-项目地址：<https://github.com/GWDx/mado>
+项目地址：<https://github.com/GWDx/Mado>
 
 ## 关于协议
 
-本仓库基于的项目 [mirai](https://github.com/mamoe/mirai) 和 [graia](https://github.com/GraiaProject/Application) 均使用 AGPL 协议。
+本仓库基于的项目 [mirai](https://github.com/mamoe/mirai) 和 [Graia](https://github.com/GraiaProject/Application) 均使用 AGPL 协议。
 
 ## 鸣谢
 
@@ -101,6 +100,6 @@ PolarPlot[Sin[5t/3],{t,0,3Pi},ColorFunction->(Hue[#3]&),ImageSize->{900,900}]
 + [mirai-console-loader](https://github.com/iTXTech/mirai-console-loader)
 + [mirai-login-solver-selenium](https://github.com/project-mirai/mirai-login-solver-selenium)
 + [mirai-api-http](https://github.com/project-mirai/mirai-api-http)
-+ [graia](https://github.com/GraiaProject/Application)
++ [Graia](https://github.com/GraiaProject/Application)
 
-同时感谢 [中国科学技术大学 Vlab 实验平台](https://vlab.ustc.edu.cn/) 提供运行环境
+同时感谢 [中国科学技术大学 Vlab 实验平台](https://vlab.ustc.edu.cn/) 提供 7*24 的运行环境

@@ -44,9 +44,8 @@ help = '''
 [2-1] ema : ExecuteMathematica
 [2-2] ema -p : 以 PNG 格式返回
 [3] pip install : Python 库安装
-[4] esh : ExecuteBash（需要权限）
-[5] help : 帮助
-项目地址 : https://github.com/GWDx/mado
+[4] help : 帮助
+项目地址 : https://github.com/GWDx/Mado
 '''
 
 
