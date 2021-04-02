@@ -26,6 +26,7 @@
 |:------------------------- |:------------------ |
 | **epy** *opts*  \n *code* | ExecutePython3     |
 | **ema** *opts*  \n *code* | ExecuteMathematica |
+| **ecp** *opts* \n *code   | ExecuteCpp         |
 | **pip install** *opts*    | Python 库安装         |
 | **help**                  | 帮助                 |
 
@@ -40,7 +41,7 @@
 
 ## 示例
 
-### **epy** 的使用
+### 执行 Python
 
 ```python
 epy
@@ -49,12 +50,12 @@ for i in range(5):
   print(i)
 ```
 
-结果为：
+**结果为：**
 
 > 1  
 > 4
 
-### **ema** 的使用
+### 执行 Mathematica
 
 #### 文本格式输出
 
@@ -66,7 +67,7 @@ Array[f,10]
 f[100]
 ```
 
-结果为：
+**结果为：**
 
 > {1, 1, 2, 3, 5, 8, 13, 21, 34, 55}  
 > 354224848179261915075
@@ -78,9 +79,22 @@ ema -p
 PolarPlot[Sin[5t/3],{t,0,3Pi},ColorFunction->(Hue[#3]&),ImageSize->{900,900}]
 ```
 
-结果为：   
+**结果为：**
 
-> <img title="" src="image/ema%20-p.png" alt="" width="300">
+> <img title="" src="image/1.png" alt="" width="300">
+
+#### 图像格式输入
+
+```wolfram
+ema -p
+Colorize@MorphologicalComponents@DeleteBorderComponents@
+```
+
+![](image/2-1.png)
+
+**结果为：**
+
+> ![](image/2-2.png)
 
 ## 作出贡献
 
@@ -102,4 +116,4 @@ PolarPlot[Sin[5t/3],{t,0,3Pi},ColorFunction->(Hue[#3]&),ImageSize->{900,900}]
 + [mirai-api-http](https://github.com/project-mirai/mirai-api-http)
 + [Graia](https://github.com/GraiaProject/Application)
 
-同时感谢 [中国科学技术大学 Vlab 实验平台](https://vlab.ustc.edu.cn/) 提供 7*24 的运行环境
+同时感谢 [中国科学技术大学 Vlab 实验平台](https://vlab.ustc.edu.cn/) 提供 7*24 小时的运行环境
