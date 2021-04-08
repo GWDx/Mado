@@ -9,8 +9,8 @@
 
 ### 特点
 
-+ 可以执行 python3 和 Mathematica 代码（通过命令行调用 python 和 wolframscript）
-+ 支持以图片格式输入 Mathematica 代码，支持以 PNG/GIF 格式输出 Mathematica 的计算结果
++ 可以执行 python3, Mathematica, C++ 代码
++ 对于 Mathematica，支持以图片格式输入代码、输出计算结果
 + 可以给出错误提示，有执行时间限制
 + 支持好友访问和群访问
 
@@ -22,26 +22,26 @@
 
 ### 主要指令
 
-| 指令                        | 含义                 |
-|:------------------------- |:------------------ |
-| **epy** *opts*  \n *code* | ExecutePython3     |
-| **ema** *opts*  \n *code* | ExecuteMathematica |
-| **ecp** *opts* \n *code   | ExecuteCpp         |
-| **pip install** *opts*    | Python 库安装         |
-| **help**                  | 帮助                 |
+| 指令                             | 含义                 |
+|:------------------------------ |:------------------ |
+| **epy** *[options]*<br/>*code* | ExecutePython3     |
+| **ema** *[options]*<br/>*code* | ExecuteMathematica |
+| **ecp** *[options]*<br/>*code* | ExecuteCpp         |
+| **pip install** *package*      | Python 库安装         |
+| **help**                       | 帮助                 |
 
 ### 选项
 
-| 选项               | 含义                     |
-|:---------------- |:---------------------- |
-| **-p**           | 以 PNG 格式返回（**ema** 专用） |
-| **-g**           | 以 GIF 格式返回（**ema** 专用） |
-| **-t** *seconds* | 修改时间限制（默认 15 秒，需要权限）   |
-| **-o**           | 不对输出字符数及行数进行限制（需要权限）   |
+| 选项               | 含义                       |
+|:---------------- |:------------------------ |
+| **-p**           | 以 PNG 格式返回（仅适用于 **ema**） |
+| **-g**           | 以 GIF 格式返回（仅适用于 **ema**） |
+| **-t** *seconds* | 修改时间限制（默认 15 秒，需要权限）     |
+| **-o**           | 不对输出字符数及行数进行限制（需要权限）     |
 
 ## 示例
 
-### 执行 Python
+### 1. 执行 Python
 
 ```python
 epy
@@ -50,49 +50,49 @@ for i in range(5):
   print(i)
 ```
 
-**结果为：**
+该程序打印 **[0, 5) 中被 3 除余 1 的整数** ：
 
 > 1  
 > 4
 
-### 执行 Mathematica
+### 2. 执行 Mathematica
 
-#### 文本格式输出
+#### 2.1 文本格式
 
 ```wolfram
 ema
-f[1]=f[2]=1;
-f[n_]:=f[n]=f[n-1]+f[n-2];
-Array[f,10]
+f[1]=f[2]= 1;
+f[n_]:=f[n]= f[n-1]+f[n-2];
+Array[f, 10]
 f[100]
 ```
 
-**结果为：**
+该程序计算 **前 10 个 Fibonacci 数** 以及 **第 100 个 Fibonacci 数**：
 
 > {1, 1, 2, 3, 5, 8, 13, 21, 34, 55}  
 > 354224848179261915075
 
-#### 图像格式输出
+#### 2.2 以图像格式输出
 
 ```wolfram
 ema -p
-PolarPlot[Sin[5t/3],{t,0,3Pi},ColorFunction->(Hue[#3]&),ImageSize->{900,900}]
+PolarPlot[Sin[5t/3], {t,0,3Pi}, ColorFunction->(Hue[#3]&), ImageSize->{900,900}]
 ```
 
-**结果为：**
+该程序绘制 $r(t)=\sin\frac{5t}3\ (0\leq t\leq 3\pi)$ 的**极坐标**图像
 
 > <img title="" src="image/1.png" alt="" width="300">
 
-#### 图像格式输入
+#### 2.3 以图像格式输入输出
 
 ```wolfram
 ema -p
-Colorize@MorphologicalComponents@DeleteBorderComponents@
+Colorize@ MorphologicalComponents@ DeleteBorderComponents@
 ```
 
 ![](image/2-1.png)
 
-**结果为：**
+该代码删除了二值图像的**边界分量**，并**用不同的颜色区分**各（连通）分量
 
 > ![](image/2-2.png)
 
