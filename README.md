@@ -3,7 +3,7 @@
 基于 mirai, Graia 的 QQ 机器人
 
 > 项目名称来源于《[魔法少女小圆](https://mzh.moegirl.org.cn/%E9%AD%94%E6%B3%95%E5%B0%91%E5%A5%B3%E5%B0%8F%E5%9C%86)》 [鹿目圆香](https://mzh.moegirl.org.cn/%E9%B9%BF%E7%9B%AE%E5%9C%86)（Kaname **Mado**ka）。  
-> <i><b>Ma</b>d</i>o<b><i>ka</i></b> 与 <i><b>Ma</b>t</i>hemati<b><i>ca</i></b> 的最长公共子序列长度竟然达到了 4，这种事绝对很奇怪啊。
+> <i><b>Ma</b>d</i>o<b><i>ka</i></b> 与 <i><b>Ma</b>t</i>hemati<b><i>ca</i></b> 的最长公共子序列长度竟然达到了 4，*这种事绝对很奇怪啊*。
 > 
 > ~~圆：我被绑架到中国科大当 bot 样本。~~
 
@@ -17,6 +17,8 @@
 ### 不足
 
 - 权限管理部分薄弱
+
+<br/>
 
 ## 指令及选项
 
@@ -39,6 +41,8 @@
 | **-t** *seconds* | 修改时间限制（默认 15 秒，需要权限）     |
 | **-o**           | 不对输出字符数及行数进行限制（需要权限）     |
 
+<br/>
+
 ## 示例
 
 ### 1. 执行 Python
@@ -50,16 +54,18 @@ for i in range(5):
   print(i)
 ```
 
-该程序打印 **[0, 5) 中被 3 除余 1 的整数** ：
+该程序打印 [0, 5) 中被 3 除余 1 的整数 ：
 
 > 1  
 > 4
+
+<br/>
 
 ### 2. 执行 Mathematica
 
 #### 2.1 文本格式
 
-```wolfram
+```mathematica
 ema
 f[1]=f[2]= 1;
 f[n_]:=f[n]= f[n-1]+f[n-2];
@@ -67,34 +73,40 @@ Array[f, 10]
 f[100]
 ```
 
-该程序计算 **前 10 个 Fibonacci 数** 以及 **第 100 个 Fibonacci 数**：
+此代码计算前 10 个以及第 100 个 Fibonacci 数：
 
 > {1, 1, 2, 3, 5, 8, 13, 21, 34, 55}  
 > 354224848179261915075
 
+<br/>
+
 #### 2.2 以图像格式输出
 
-```wolfram
+```mathematica
 ema -p
 PolarPlot[Sin[5t/3], {t,0,3Pi}, ColorFunction->(Hue[#3]&), ImageSize->{900,900}]
 ```
 
-该程序绘制 $r(t)=\sin\frac{5t}3\ (0\leq t\leq 3\pi)$ 的**极坐标**图像
+这段代码绘制 $r(t)=\sin\frac{5t}3\ (0\leq t\leq 3\pi)$ 的极坐标图像：
 
 > <img title="" src="image/1.png" alt="" width="300">
 
+<br/>
+
 #### 2.3 以图像格式输入输出
 
-```wolfram
+```mathematica
 ema -p
 Colorize@ MorphologicalComponents@ DeleteBorderComponents@
 ```
 
 ![](image/2-1.png)
 
-该代码删除了二值图像的**边界分量**，并**用不同的颜色区分**各（连通）分量
+该代码用不同的颜色区分二值图像中的各个非边界分量：
 
 > ![](image/2-2.png)
+
+<br/>
 
 ## 作出贡献
 
@@ -116,4 +128,5 @@ Colorize@ MorphologicalComponents@ DeleteBorderComponents@
 + [mirai-api-http](https://github.com/project-mirai/mirai-api-http)
 + [Graia](https://github.com/GraiaProject/Application)
 
-同时感谢 [中国科学技术大学 Vlab 实验平台](https://vlab.ustc.edu.cn/) 提供 7*24 小时的运行环境
+同时感谢 [中国科学技术大学 Vlab 实验平台](https://vlab.ustc.edu.cn/) 提供 7*24 小时的运行环境。
+
