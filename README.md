@@ -119,6 +119,8 @@ Colorize@ MorphologicalComponents@ DeleteBorderComponents@
 
 ## 鸣谢
 
+本项目灵感来自 [liqibot2](https://github.com/fyr233/liqibot2) 。
+
 感谢以下开源项目：
 
 + [mirai](https://github.com/mamoe/mirai)

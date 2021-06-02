@@ -20,35 +20,35 @@ def kernel(fullCommand, id):
 
         # ExecuteMathematica (ema)
         # 好友仅 '-p' 也可输出图片
-        elif (regularQ(firstLine, "mathematica", "ma") or 
+        elif (regularQ(firstLine, "mathematica", "ma") or
               regularQ2(firstLine, "mma") or regularQ2(firstLine, "wl") or
               (not '-' in id) and ('-p' in firstLine or '-g' in firstLine)):
             fileName = writeFile(id, ".wl", code(command))
-            
+
             if '-p' in firstLine:
                 result = exportPicture(fileName, 'PNG', firstLine, id)
             elif '-g' in firstLine:
                 result = exportPicture(fileName, 'GIF', firstLine, id)
             else:
                 ans = runCMD(mathematicaCMD(fileName), id, options(firstLine))
-                
-        #ecpp
+
+        # ecpp
         elif regularQ(firstLine, "cpp", "cp") or regularQ(firstLine, "c++", "c+"):
             fileName = writeFile(id, ".cpp", code(command))
             outName = fileName.split('.')[0] + '.out'
-            cppCMD = 'g++ -o ' + outName + ' ' + fileName + ' && ./' + outName 
+            cppCMD = 'g++ -o ' + outName + ' ' + fileName + ' && ./' + outName
             ans = runCMD(cppCMD, id, options(firstLine))
 
         # pip install
         elif firstLine.startswith("pip install"):
             ans = runCMD('pip3 ' + options(firstLine), id, '')
-        
+
         # ExecuteBash (esh)
         elif regularQ2(firstLine, "bash") or regularQ2(firstLine, "sh"):
             if permissionQ(id):
                 fileName = writeFile(id, ".sh", code(command))
                 ans = runCMD('bash "' + fileName + '"', id, options(firstLine))
-        
+
         # help
         elif firstLine == "help":
             ans = help.strip('\n')
@@ -60,7 +60,7 @@ def kernel(fullCommand, id):
 
         else:
             return 0
-        
+
         if len(ans) > 1000:
             if not ('-o' in firstLine and permissionQ(id)):
                 raise RuntimeError('Length > 1000')
@@ -68,31 +68,33 @@ def kernel(fullCommand, id):
         if len(ans.split('\n')) > 40:
             if not ('-o' in firstLine and permissionQ(id)):
                 raise RuntimeError('Rows > 40')
-        
+
     except Exception as ex:
         ans = str(ex)
         print('>> ', ex)
-    
+
     # print(ans)
     if result == 1:
         result = Plain(ans)
     return result
 
 
-
 def code(command):
     return command[(command + '\n').find('\n'):].strip('\n')
+
 
 def options(firstLine):
     return firstLine[(firstLine + ' ').find(' '):].strip(' ')
 
 
 def mathematicaCMD(fileName):
-    return 'wolframscript -print all -f "' + fileName + '"'
+    return 'wolframscript -print all -charset None -f "' + fileName + '"'
+
 
 def exportPicture(fileName, suffix, firstLine, id):
     imgName = fileName.split('.')[0] + '.' + suffix.lower()
-    CMD = mathematicaCMD(fileName) + ' -format ' + suffix + ' > "' + imgName + '"'
+    CMD = mathematicaCMD(fileName) + ' -format ' + \
+        suffix + ' > "' + imgName + '"'
     runCMD(CMD, id, options(firstLine))
     print('>> ', imgName)
     time.sleep(2)
@@ -100,7 +102,7 @@ def exportPicture(fileName, suffix, firstLine, id):
     return result
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     kernel('help', 'test')
 
     pyCommand = 'epy\nimport time\ntime.sleep(20)\nprint(20)'

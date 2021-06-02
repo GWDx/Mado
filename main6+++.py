@@ -10,8 +10,8 @@ from initialize import *
 
 @bcc.receiver("FriendMessage")
 async def friend_message_listenerasync(
-    message : MessageChain,
-    app: GraiaMiraiApplication, 
+    message: MessageChain,
+    app: GraiaMiraiApplication,
     friend: Friend
 ):
     command = normalize(message)
@@ -22,12 +22,12 @@ async def friend_message_listenerasync(
         except Exception as ex:
             print('## ', ex)
             await app.sendFriendMessage(friend, MessageChain.create([Plain(str(ex))]))
-       
+
 
 @bcc.receiver("GroupMessage")
 async def group_message_handler(
-    message : MessageChain,
-    app: GraiaMiraiApplication, 
+    message: MessageChain,
+    app: GraiaMiraiApplication,
     group: Group, member: Member
 ):
     command = normalize(message)
@@ -38,5 +38,5 @@ async def group_message_handler(
         except Exception as ex:
             print('## ', ex)
             await app.sendGroupMessage(group, MessageChain.create([Plain(str(ex))]))
-        
+
 app.launch_blocking()

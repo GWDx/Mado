@@ -8,9 +8,9 @@ def writeFile(id, suffix, code):
     path = 'temp/' + id + '/'
     if not os.path.exists(path):
         os.makedirs(path)
-    
+
     ymd = time.strftime('%Y-%m-%d', time.localtime(time.time()))
-    hms = time.strftime('%H-%M-%S',time.localtime(time.time()))
+    hms = time.strftime('%H-%M-%S', time.localtime(time.time()))
     path2 = path + ymd + '/'
     if not os.path.exists(path2):
         os.makedirs(path2)
@@ -34,12 +34,12 @@ def runCMD(cmd, id, options):
         if permissionQ(id):
             timeLimit = int(options.split('-t')[1].strip(' ').split(' ')[0])
 
-    ret = subprocess.run(cmd, timeout = timeLimit, encoding = "utf-8", shell=True,
-                        stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+    ret = subprocess.run(cmd, timeout=timeLimit, encoding="utf-8", shell=True,
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     ans = ret.stdout.strip('\n')
     if ret.stderr != '':
         ans = '####\n' + ret.stderr.strip('\n') + '\n####\n' + ret.stdout
-    if ret.returncode != 0 or ans == '' or random.randint(1,100) == 1:
+    if ret.returncode != 0 or ans == '' or random.randint(1, 100) == 1:
         ans = '>> returncode = ' + str(ret.returncode) + '\n' + ans
     return ans.strip('\n')
 
@@ -48,7 +48,7 @@ def regularQ2(firstLine, kernel):
     return regularQ(firstLine, kernel, kernel)
 
 def regularQ(firstLine, full, kernel):
-    if firstLine.find(kernel)<=0:
+    if firstLine.find(kernel) <= 0:
         return False
     left = firstLine.split(kernel)[0]
     right = firstLine[len(left):].split(' ')[0]
@@ -67,11 +67,11 @@ def permissionQ(id):
         f.write(id + '\n')
         f.close()
         return True
-    
+
     raise RuntimeError('Permission Denied')
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     # print(regularQ('ebash','bash','sh'))
 
     ans = runCMD('python testPython.txt', 'test', '')
