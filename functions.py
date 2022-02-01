@@ -20,9 +20,8 @@ def writeFile(id, suffix, code):
     if os.path.exists(fileName) or minuteFileNumber >= 6:
         raise RuntimeError('Too Frequent')
 
-    f = open(fileName, 'w', encoding='utf-8')
-    f.write(code + "\n")
-    f.close()
+    with open(fileName, 'w') as file:
+        file.write(code + '\n')
     return fileName
 
 
@@ -30,16 +29,15 @@ def runCMD(cmd, id, options):
     timeLimit = 15
     if cmd.startswith('pip'):
         timeLimit = 45
-    if options.find('-t') >= 0:
-        if permissionQ(id):
-            timeLimit = int(options.split('-t')[1].strip(' ').split(' ')[0])
+    if '-t' in options and permissionQ(id):
+        timeLimit = int(options.split('-t')[1].strip(' ').split(' ')[0])
 
-    ret = subprocess.run(cmd, timeout=timeLimit, encoding="utf-8", shell=True, capture_output=True)
+    ret = subprocess.run(cmd, timeout=timeLimit, encoding='utf-8', shell=True, capture_output=True)
     ans = ret.stdout.strip('\n')
     if ret.stderr != '':
         ans = '####\n' + ret.stderr.strip('\n') + '\n####\n' + ret.stdout
     if ret.returncode != 0 or ans == '' or random.randint(1, 100) == 1:
-        ans = '>> returncode = ' + str(ret.returncode) + '\n' + ans
+        ans = f'>> returncode = {ret.returncode}\n' + ans
     return ans.strip('\n')
 
 
@@ -52,20 +50,18 @@ def regularQ(firstLine, full, kernel):
         return False
     left = firstLine.split(kernel)[0]
     right = firstLine[len(left):].split(' ')[0]
-    return "execute".startswith(left) and full.startswith(right)
+    return 'execute'.startswith(left) and full.startswith(right)
 
 
 def permissionQ(id):
-    f = open('temp/permission.txt', 'r', encoding='utf-8')
-    friends = f.read().split('\n')
-    f.close()
+    with open('temp/permission.txt', 'r') as file:
+        friends = file.read().split('\n')
 
     if id.split('-')[-1] in friends:
         return True
     elif not '-' in id:
-        f = open('temp/permission.txt', 'a', encoding='utf-8')
-        f.write(id + '\n')
-        f.close()
+        with open('temp/permission.txt', 'a') as file:
+            file.write(id + '\n')
         return True
 
     raise RuntimeError('Permission Denied')

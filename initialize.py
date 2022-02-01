@@ -15,7 +15,7 @@ def normalize(message):
             if 'Plain' in str(e.type):
                 valid.append(e)
             if 'Image' in str(e.type):
-                valid.append(Plain('Import["' + str(e.url) + '"]'))
+                valid.append(Plain(f'Import[{e.url}]'))
         ans = MessageChain.create(valid).asDisplay()
 
     except:
@@ -31,8 +31,8 @@ bcc = Broadcast(loop=loop)
 app = GraiaMiraiApplication(
     broadcast=bcc,
     connect_info=Session(
-        host="http://localhost:8080",  # 填入 httpapi 服务运行的地址
-        authKey="1234567890",  # 填入 authKey
+        host='http://localhost:8080',  # 填入 httpapi 服务运行的地址
+        authKey='1234567890',  # 填入 authKey
         account=2944791899,  # 你的机器人的 qq 号
         websocket=True  # Graia 已经可以根据所配置的消息接收的方式来保证消息接收部分的正常运作.
     ))
