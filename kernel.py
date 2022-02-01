@@ -18,11 +18,15 @@ def kernel(fullCommand, id):
             fileName = writeFile(id, ".py", code(command))
             ans = runCMD('python3 "' + fileName + '"', id, options(firstLine))
 
+        # ejs
+        elif regularQ2(firstLine, "js"):
+            fileName = writeFile(id, ".py", code(command))
+            ans = runCMD(f'nodejs {fileName}', id, options(firstLine))
+
         # ExecuteMathematica (ema)
         # 好友仅 '-p' 也可输出图片
-        elif (regularQ(firstLine, "mathematica", "ma") or
-              regularQ2(firstLine, "mma") or regularQ2(firstLine, "wl") or
-              (not '-' in id) and ('-p' in firstLine or '-g' in firstLine)):
+        elif (regularQ(firstLine, "mathematica", "ma") or regularQ2(firstLine, "mma") or regularQ2(firstLine, "wl")
+              or (not '-' in id) and ('-p' in firstLine or '-g' in firstLine)):
             fileName = writeFile(id, ".wl", code(command))
 
             if '-p' in firstLine:

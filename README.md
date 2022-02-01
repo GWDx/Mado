@@ -1,4 +1,4 @@
-# Mado
+## Mado
 
 基于 mirai, Graia 的 QQ 机器人
 
@@ -7,22 +7,22 @@
 > 
 > ~~圆：我被绑架到中国科大当 bot 样本。~~
 
-### 特点
+#### 特点
 
 + 可以执行 python3, Mathematica, C++ 代码
 + 对于 Mathematica，支持以图片格式输入代码、输出计算结果
 + 可以给出错误提示，有执行时间限制
 + 支持好友访问和群访问
 
-### 不足
+#### 不足
 
 - 权限管理部分薄弱
 
 <br/>
 
-## 指令及选项
+### 指令及选项
 
-### 主要指令
+#### 主要指令
 
 | 指令                             | 含义                 |
 |:------------------------------ |:------------------ |
@@ -32,7 +32,7 @@
 | **pip install** *package*      | Python 库安装         |
 | **help**                       | 帮助                 |
 
-### 选项
+#### 选项
 
 | 选项               | 含义                       |
 |:---------------- |:------------------------ |
@@ -43,9 +43,9 @@
 
 <br/>
 
-## 示例
+### 示例
 
-### 1. 执行 Python
+#### 1. 执行 Python
 
 ```python
 epy
@@ -61,9 +61,9 @@ for i in range(5):
 
 <br/>
 
-### 2. 执行 Mathematica
+#### 2. 执行 Mathematica
 
-#### 2.1 文本格式
+##### 2.1 文本格式
 
 ```mathematica
 ema
@@ -80,7 +80,7 @@ f[100]
 
 <br/>
 
-#### 2.2 以图像格式输出
+##### 2.2 以图像格式输出
 
 ```mathematica
 ema -p
@@ -93,7 +93,7 @@ PolarPlot[Sin[5t/3], {t,0,3Pi}, ColorFunction->(Hue[#3]&), ImageSize->{900,900}]
 
 <br/>
 
-#### 2.3 以图像格式输入输出
+##### 2.3 以图像格式输入输出
 
 ```mathematica
 ema -p
@@ -108,16 +108,16 @@ Colorize@ MorphologicalComponents@ DeleteBorderComponents@
 
 <br/>
 
-## 作出贡献
+### 作出贡献
 
 欢迎提出建议，欢迎 pull request  
 项目地址：<https://github.com/GWDx/Mado>
 
-## 关于协议
+### 关于协议
 
 本仓库基于的项目 [mirai](https://github.com/mamoe/mirai) 和 [Graia](https://github.com/GraiaProject/Application) 均使用 AGPL 协议。
 
-## 鸣谢
+### 鸣谢
 
 本项目灵感来自 [liqibot2](https://github.com/fyr233/liqibot2) 。
 

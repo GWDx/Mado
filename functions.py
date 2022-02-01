@@ -34,8 +34,7 @@ def runCMD(cmd, id, options):
         if permissionQ(id):
             timeLimit = int(options.split('-t')[1].strip(' ').split(' ')[0])
 
-    ret = subprocess.run(cmd, timeout=timeLimit, encoding="utf-8", shell=True,
-                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    ret = subprocess.run(cmd, timeout=timeLimit, encoding="utf-8", shell=True, capture_output=True)
     ans = ret.stdout.strip('\n')
     if ret.stderr != '':
         ans = '####\n' + ret.stderr.strip('\n') + '\n####\n' + ret.stdout
@@ -46,6 +45,7 @@ def runCMD(cmd, id, options):
 
 def regularQ2(firstLine, kernel):
     return regularQ(firstLine, kernel, kernel)
+
 
 def regularQ(firstLine, full, kernel):
     if firstLine.find(kernel) <= 0:

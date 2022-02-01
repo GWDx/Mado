@@ -35,20 +35,18 @@ app = GraiaMiraiApplication(
         authKey="1234567890",  # 填入 authKey
         account=2944791899,  # 你的机器人的 qq 号
         websocket=True  # Graia 已经可以根据所配置的消息接收的方式来保证消息接收部分的正常运作.
-    )
-)
-
+    ))
 
 help = '''
 [1] epy : ExecutePython3
 [2-1] ema : ExecuteMathematica
 [2-2] ema -p : 以 PNG 格式返回
 [3] ecp : ExecuteCpp
-[4] pip install : Python 库安装
-[5] help : 帮助
+[4] ejs : ExecuteJS
+[5] pip install : Python 库安装
+[6] help : 帮助
 项目地址 : https://github.com/GWDx/Mado
 '''
-
 
 if __name__ == '__main__':
     print(help)
