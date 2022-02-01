@@ -1,4 +1,4 @@
-## Mado
+# Mado
 
 基于 mirai, Graia 的 QQ 机器人
 
@@ -7,32 +7,35 @@
 > 
 > ~~圆：我被绑架到中国科大当 bot 样本。~~
 
-#### 特点
+### 特点
 
 + 可以执行 python3, Mathematica, C++ 代码
 + 对于 Mathematica，支持以图片格式输入代码、输出计算结果
 + 可以给出错误提示，有执行时间限制
 + 支持好友访问和群访问
 
-#### 不足
+### 不足
 
 - 权限管理部分薄弱
 
 <br/>
 
-### 指令及选项
+## 使用
 
-#### 主要指令
+机器人 QQ 号：2944791899
 
-| 指令                             | 含义                 |
-|:------------------------------ |:------------------ |
+### 主要指令
+
+| 指令                           | 含义               |
+| :----------------------------- | :----------------- |
 | **epy** *[options]*<br/>*code* | ExecutePython3     |
 | **ema** *[options]*<br/>*code* | ExecuteMathematica |
 | **ecp** *[options]*<br/>*code* | ExecuteCpp         |
-| **pip install** *package*      | Python 库安装         |
-| **help**                       | 帮助                 |
+| **ejs** *[options]*<br/>*code* | ExecuteJavaScript  |
+| **pip install** *package*      | Python 库安装      |
+| **help**                       | 帮助               |
 
-#### 选项
+### 选项
 
 | 选项               | 含义                       |
 |:---------------- |:------------------------ |
@@ -107,6 +110,34 @@ Colorize@ MorphologicalComponents@ DeleteBorderComponents@
 > ![](image/2-2.png)
 
 <br/>
+
+## 部署
+
+### 环境
+
+建议使用 `mirai-console-loader` 安装及配置 `mirai`。其中 `mirai-console` `mirai-console-terminal` `mirai-core-all` 版本选择 `2.6.7`。
+
+至于 `Graia`，
+
+```bash
+pip install graia-application-mirai graia-broadcast
+```
+
+### 运行
+
+```bash
+./mcl -u
+```
+
+下载此仓库，在另一个终端中输入
+
+```bash
+python3 main.py
+```
+
+<br/>
+
+## 备注
 
 ### 作出贡献
 
