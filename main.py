@@ -7,6 +7,10 @@ from graia.application.message.elements.internal import Plain
 from kernel import *
 from initialize import *
 
+import sys
+
+debugMode = len(sys.argv) > 1
+
 
 @bcc.receiver('FriendMessage')
 async def friend_message_listenerasync(message: MessageChain, app: GraiaMiraiApplication, friend: Friend):
@@ -22,6 +26,8 @@ async def friend_message_listenerasync(message: MessageChain, app: GraiaMiraiApp
 
 @bcc.receiver('GroupMessage')
 async def group_message_handler(message: MessageChain, app: GraiaMiraiApplication, group: Group, member: Member):
+    if debugMode:
+        return
     command = normalize(message)
     result = kernel(command, f'{group.id}-{member.id}')
     if result:

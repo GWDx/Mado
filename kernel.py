@@ -21,13 +21,13 @@ def kernel(fullCommand, id):
             ans = runCMD(f'python3 {fileName}', id, options)
 
         # ejs
-        elif regularQ2(firstLine, 'js'):
+        elif regularQ(firstLine, 'js'):
             fileName = writeFile(id, '.js', code)
             ans = runCMD(f'nodejs {fileName}', id, options)
 
         # ExecuteMathematica (ema)
         # 好友仅 '-p' 也可输出图片
-        elif (regularQ(firstLine, 'mathematica', 'ma') or regularQ2(firstLine, 'mma') or regularQ2(firstLine, 'wl')
+        elif (regularQ(firstLine, 'mathematica', 'ma') or regularQ(firstLine, 'mma') or regularQ(firstLine, 'wl')
               or (not '-' in id) and ('-p' in firstLine or '-g' in firstLine)):
             fileName = writeFile(id, '.wl', code)
 
@@ -50,7 +50,7 @@ def kernel(fullCommand, id):
             ans = runCMD('pip3 ' + options, id, '')
 
         # ExecuteBash (esh)
-        elif regularQ2(firstLine, 'bash') or regularQ2(firstLine, 'sh'):
+        elif regularQ(firstLine, 'bash') or regularQ(firstLine, 'sh'):
             if permissionQ(id):
                 fileName = writeFile(id, '.sh', code)
                 ans = runCMD(f'bash {fileName}', id, options)

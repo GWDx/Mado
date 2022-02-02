@@ -92,7 +92,7 @@ PolarPlot[Sin[5t/3], {t,0,3Pi}, ColorFunction->(Hue[#3]&), ImageSize->{900,900}]
 
 这段代码绘制 ![r=sin(5t/3)](https://render.githubusercontent.com/render/math?math=r(t)=\sin\frac{5t}3\ (0\leq t\leq 3\pi)) 的极坐标图像：
 
-> <img alt="1" src="image/1.png" alt="" width="300">
+> <img src="image/1.png" alt="1" width="300">
 
 <br/>
 
@@ -100,12 +100,13 @@ PolarPlot[Sin[5t/3], {t,0,3Pi}, ColorFunction->(Hue[#3]&), ImageSize->{900,900}]
 
 <pre>
 ema -p
-Colorize@ MorphologicalComponents@ DeleteBorderComponents@ <img src="image/2-1.png" alt="2-1" />
+Colorize@ MorphologicalComponents@ DeleteBorderComponents@
+<img src="image/2-1.png" alt="2-1" />
 </pre>
 
 
 
-该代码用不同的颜色区分二值图像中的各个非边界分量：
+该代码用不同的颜色区分黑白图片中的各个非边界的连通分量：
 
 > ![2-2](image/2-2.png)
 

@@ -41,11 +41,9 @@ def runCMD(cmd, id, options):
     return ans.strip('\n')
 
 
-def regularQ2(firstLine, kernel):
-    return regularQ(firstLine, kernel, kernel)
-
-
-def regularQ(firstLine, full, kernel):
+def regularQ(firstLine, full, kernel=None):
+    if kernel == None:
+        kernel = full
     if firstLine.find(kernel) <= 0:
         return False
     left = firstLine.split(kernel)[0]
