@@ -116,12 +116,14 @@ Colorize@ MorphologicalComponents@ DeleteBorderComponents@
 
 ### 环境
 
+#### mirai
+
 建议使用 `mirai-console-loader` 安装及配置 `mirai`。其中 `mirai-console` `mirai-console-terminal` `mirai-core-all` 版本选择 `2.6.7`。
 
-至于 `Graia`，
+#### Graia
 
 ```bash
-pip install graia-application-mirai graia-broadcast
+pip install graia-application-mirai==0.19.0 graia-broadcast==0.8.11
 ```
 
 ### 运行
@@ -130,7 +132,7 @@ pip install graia-application-mirai graia-broadcast
 ./mcl -u
 ```
 
-下载此仓库，在另一个终端中输入
+`clone` 此仓库后，在另一个终端中输入
 
 ```bash
 python3 main.py
