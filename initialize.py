@@ -43,8 +43,9 @@ help = '''
 [2-2] ema -p : 以 PNG 格式返回
 [3] ecp : ExecuteCpp
 [4] ejs : ExecuteJS
-[5] pip install : Python 库安装
-[6] help : 帮助
+[5] erb : ExecuteRB
+[6] pip install : Python 库安装
+[7] help : 帮助
 项目地址 : https://github.com/GWDx/Mado
 '''
 

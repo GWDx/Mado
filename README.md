@@ -9,7 +9,7 @@
 
 ### 特点
 
-+ 可以执行 python3, Mathematica, C++ 代码
++ 可以执行 python3, Mathematica, C++ 等代码
 + 对于 Mathematica，支持以图片格式输入代码、输出计算结果
 + 可以给出错误提示，有执行时间限制
 + 支持好友访问和群访问
@@ -32,6 +32,7 @@
 | **ema** *[options]*<br/>*code* | ExecuteMathematica |
 | **ecp** *[options]*<br/>*code* | ExecuteCpp         |
 | **ejs** *[options]*<br/>*code* | ExecuteJavaScript  |
+| **erb** *[options]*<br/>*code* | ExecuteRuby        |
 | **pip install** *package*      | Python 库安装      |
 | **help**                       | 帮助               |
 

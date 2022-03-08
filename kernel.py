@@ -1,7 +1,5 @@
 from graia.application.message.elements.internal import Plain, Image
 
-import time
-
 from functions import *
 from initialize import help
 
@@ -19,6 +17,11 @@ def kernel(fullCommand, id):
         if regularQ(firstLine, 'python3', 'py'):
             fileName = writeFile(id, '.py', code)
             ans = runCMD(f'python3 {fileName}', id, options)
+
+        # erb
+        if regularQ(firstLine, 'rb') or regularQ(firstLine, 'ruby'):
+            fileName = writeFile(id, '.rb', code)
+            ans = runCMD(f'ruby {fileName}', id, options)
 
         # ejs
         elif regularQ(firstLine, 'js'):
@@ -94,7 +97,6 @@ def exportPicture(fileName, suffix, options, id):
     CMD = mathematicaCMD(fileName) + f' -format {suffix} > {imgName}'
     runCMD(CMD, id, options)
     print('>> ', imgName)
-    time.sleep(1)
     result = Image.fromLocalFile(imgName)
     return result
 
