@@ -1,4 +1,4 @@
-from graia.application.message.elements.internal import Plain, Image
+from graia.ariadne.message.element import Plain, Image
 
 from functions import *
 from initialize import help
@@ -19,7 +19,7 @@ def kernel(fullCommand, id):
             ans = runCMD(f'python3 {fileName}', id, options)
 
         # erb
-        if regularQ(firstLine, 'rb') or regularQ(firstLine, 'ruby'):
+        elif regularQ(firstLine, 'rb') or regularQ(firstLine, 'ruby'):
             fileName = writeFile(id, '.rb', code)
             ans = runCMD(f'ruby {fileName}', id, options)
 

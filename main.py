@@ -1,8 +1,8 @@
-from graia.application.friend import Friend
-from graia.application.group import Group, Member
-from graia.application import GraiaMiraiApplication
-from graia.application.message.chain import MessageChain
-from graia.application.message.elements.internal import Plain
+from graia.broadcast import Broadcast
+from graia.ariadne.app import Ariadne
+from graia.ariadne.message.chain import MessageChain
+from graia.ariadne.message.element import Plain
+from graia.ariadne.model import Friend, MiraiSession, Group, Member
 
 from kernel import *
 from initialize import *
@@ -12,8 +12,8 @@ import sys
 debugMode = len(sys.argv) > 1
 
 
-@bcc.receiver('FriendMessage')
-async def friend_message_listenerasync(message: MessageChain, app: GraiaMiraiApplication, friend: Friend):
+@broadcast.receiver("FriendMessage")
+async def friend_message_listener(message: MessageChain, app: Ariadne, friend: Friend):
     command = normalize(message)
     result = kernel(command, str(friend.id))
     if result:
@@ -24,12 +24,13 @@ async def friend_message_listenerasync(message: MessageChain, app: GraiaMiraiApp
             await app.sendFriendMessage(friend, MessageChain.create([Plain(str(ex))]))
 
 
-@bcc.receiver('GroupMessage')
-async def group_message_handler(message: MessageChain, app: GraiaMiraiApplication, group: Group, member: Member):
-    if debugMode:
-        return
+@broadcast.receiver('GroupMessage')
+async def group_message_handler(message: MessageChain, app: Ariadne, group: Group, member: Member):
     command = normalize(message)
     result = kernel(command, f'{group.id}-{member.id}')
+    if debugMode:
+        print(result)
+        return
     if result:
         try:
             await app.sendGroupMessage(group, MessageChain.create([result]))
@@ -38,4 +39,4 @@ async def group_message_handler(message: MessageChain, app: GraiaMiraiApplicatio
             await app.sendGroupMessage(group, MessageChain.create([Plain(str(ex))]))
 
 
-app.launch_blocking()
+loop.run_until_complete(app.lifecycle())

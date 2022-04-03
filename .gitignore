@@ -1,2 +1,4 @@
-
+.directory
 upload.sh
+temp
+__pycache__
