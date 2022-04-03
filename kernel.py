@@ -3,18 +3,30 @@ from graia.ariadne.message.element import Plain, Image
 from functions import *
 from initialize import help
 
+from getCopilotAnswer import getCopilotAnswer
+
 
 def kernel(fullCommand, id):
-    command = fullCommand.strip('\n')
+    command = fullCommand
     firstLine = command.split('\n')[0].lower()
-    code = command[len(firstLine):].strip('\n')
+    code = command[len(firstLine) + 1:]
+    task = firstLine.split(' ')[0]
     options = firstLine[(firstLine + ' ').find(' '):].strip(' ')
     result = None
     ans = ''
 
     try:
+        if task == 'cpy':
+            fileName = writeFile(id, '.py', code)
+            ans = getCopilotAnswer(code, fileName)
+
+        elif task == 'co':
+            suffix = options.split(' ')[0]
+            fileName = writeFile(id, f'.{suffix}', code)
+            ans = getCopilotAnswer(code, fileName)
+
         # ExecutePython (epy)
-        if regularQ(firstLine, 'python3', 'py'):
+        elif regularQ(firstLine, 'python3', 'py'):
             fileName = writeFile(id, '.py', code)
             ans = runCMD(f'python3 {fileName}', id, options)
 
@@ -102,11 +114,13 @@ def exportPicture(fileName, suffix, options, id):
 
 
 if __name__ == '__main__':
-    kernel('help', 'test')
+    copilotCommand = 'cpy\nimport numpy\n# arr is random array, size 5\n'
+    print(kernel(copilotCommand, 'test'))
+    # kernel('help', 'test')
 
-    pyCommand = 'epy\nimport time\ntime.sleep(20)\nprint(20)'
-    pyCommand = 'epy\na=1/0'
-    print(kernel(pyCommand, 'test'))
+    # pyCommand = 'epy\nimport time\ntime.sleep(20)\nprint(20)'
+    # pyCommand = 'epy\na=1/0'
+    # print(kernel(pyCommand, 'test'))
 
     # mmaCommand = 'ema\nTable[i^2,{i,10}]'
     # mmaCommand = 'ema -p\nPolarPlot[Sin[5t/3],{t,0,6Pi}]'

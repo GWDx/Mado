@@ -1,4 +1,6 @@
 .directory
-upload.sh
-temp
+.vscode
 __pycache__
+learn
+temp
+upload.sh
