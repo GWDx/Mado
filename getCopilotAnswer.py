@@ -7,7 +7,12 @@ nvimLock = Lock()
 nest_asyncio.apply()
 
 
-def getCopilotAnswer(code, fileName):
+def getCopilotAnswer(rawCode, fileName):
+    if rawCode[-1] == '$':
+        code = rawCode[:-1]
+    else:
+        code = rawCode + '\n'
+
     nvimLock.acquire()
     try:
         nvim = attach('socket', path='/tmp/nvim')

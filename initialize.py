@@ -38,14 +38,15 @@ app = Ariadne(
     ))
 
 help = '''
-[1] epy : ExecutePython3
-[2-1] ema : ExecuteMathematica
-[2-2] ema -p : 以 PNG 格式返回
-[3] ecp : ExecuteCpp
-[4] ejs : ExecuteJS
-[5] erb : ExecuteRB
-[6] pip install : Python 库安装
-[7] help : 帮助
+[1] 代码执行
+    epy : 执行 Python3 代码
+    ema, ecp, ejs, erb 分别表示执行 Mathematica, C++, JavaScript, Ruby 代码
+    其中 ema -p 以 PNG 格式返回 Mathematica 执行结果
+[2] 代码补全
+    cpy : 使用 Copilot 补全 Python 代码
+    co cpp : 使用 Copilot 补全后缀为 cpp 的文件
+[3] pip install : Python 库安装
+[4] help : 查看帮助信息
 项目地址 : https://github.com/GWDx/Mado
 '''
 

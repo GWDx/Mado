@@ -11,6 +11,7 @@
 
 + 可以执行 python3, Mathematica, C++ 等代码
 + 对于 Mathematica，支持以图片格式输入代码、输出计算结果
++ 支持 GitHub Copilot 补全
 + 可以给出错误提示，有执行时间限制
 + 支持好友访问和群访问
 
@@ -26,15 +27,13 @@
 
 ### 主要指令
 
-| 指令                           | 含义               |
-| :----------------------------- | :----------------- |
-| **epy** *[options]*<br/>*code* | ExecutePython3     |
-| **ema** *[options]*<br/>*code* | ExecuteMathematica |
-| **ecp** *[options]*<br/>*code* | ExecuteCpp         |
-| **ejs** *[options]*<br/>*code* | ExecuteJavaScript  |
-| **erb** *[options]*<br/>*code* | ExecuteRuby        |
-| **pip install** *package*      | Python 库安装      |
-| **help**                       | 帮助               |
+| 指令                           | 含义                                                         |
+| :----------------------------- | :----------------------------------------------------------- |
+| **epy** *[options]*<br/>*code* | 执行 Python3 代码，<br />而 **ema**, **ecp**, **ejs**, **erb** 分别代表执行 Mathematica, C++, JavaScript, Ruby 代码 |
+| **cpy**<br />*code*            | 使用 GitHub Copilot 补全 Python 代码                         |
+| **co** *suffix*<br />*code*    | 使用 GitHub Copilot 补全后缀为 suffix 的文件                 |
+| **pip install** *package*      | Python 库安装                                                |
+| **help**                       | 查看帮助信息                                                 |
 
 ### 选项
 
@@ -113,27 +112,84 @@ Colorize@ MorphologicalComponents@ DeleteBorderComponents@
 
 <br/>
 
+#### 3. Copilot 补全
+
+```python
+cpy
+import numpy
+# arr is random array, size 5
+```
+
+> ```python
+> arr = numpy.random.randint(0, 10, 5)
+> ```
+
+<br/>
+
+默认会在输入文本后面添加一个空行。在末尾加上 `$` 表示最后一行没有结束，例如
+
+```python
+co py
+# 打印 1 到 200 的整数，不足 3 位在前面补 0
+for$
+```
+
+> ```python
+> for i in range(1, 201):
+>     print('%03d' % i, end=' ')
+> ```
+
+<br/>
+
 ## 部署
 
 ### 环境
 
 #### mirai
 
-建议使用 `mirai-console-loader` 安装及配置 `mirai`。其中 `mirai-console` `mirai-console-terminal` `mirai-core-all` 版本选择 `2.6.7`。
+建议使用 `mirai-console-loader` 安装及配置 `mirai`
 
-#### Graia
++ `mirai-console` `mirai-console-terminal` `mirai-core-all` 版本选择 `2.10.1`。
++ `mirai-api-http` 版本 `2.5.0`
+
+> 不保证在其他版本下是否可以正常运行
+
+#### Ariadne
+
+版本建议选择 `0.6.15`
 
 ```bash
-pip install graia-application-mirai==0.19.0 graia-broadcast==0.8.11
+pip install graia-ariadne
 ```
 
+#### Copilot
+
+配置 [copilot neovim](https://github.com/github/copilot.vim)
+
+```bash
+pip install neovim
+pip install nest_asyncio
+```
+
+
+
 ### 运行
+
+先在一个终端中启动 `mirai`
 
 ```bash
 ./mcl -u
 ```
 
-`clone` 此仓库后，在另一个终端中输入
+`clone` 此仓库后，打开一个终端，输入
+
+```
+export NVIM_LISTEN_ADDRESS=/tmp/nvim
+mkdir temp
+nvim temp/test.py
+```
+
+再打开一个终端，输入
 
 ```bash
 python3 main.py
@@ -156,14 +212,15 @@ python3 main.py
 
 本项目灵感来自 [liqibot2](https://github.com/fyr233/liqibot2) 。
 
-感谢以下开源项目：
+感谢以下项目：
 
 + [mirai](https://github.com/mamoe/mirai)
 + [mirai-console](https://github.com/mamoe/mirai-console)
 + [mirai-console-loader](https://github.com/iTXTech/mirai-console-loader)
-+ [mirai-login-solver-selenium](https://github.com/project-mirai/mirai-login-solver-selenium)
 + [mirai-api-http](https://github.com/project-mirai/mirai-api-http)
-+ [Graia](https://github.com/GraiaProject/Application)
++ [Ariadne](https://github.com/GraiaProject/Ariadne)
++ [copilot.vim](https://github.com/github/copilot.vim)
++ [pynvim](https://github.com/neovim/pynvim)
 
 同时感谢 [中国科学技术大学 Vlab 实验平台](https://vlab.ustc.edu.cn/) 提供 7*24 小时的运行环境。
 
