@@ -147,7 +147,7 @@ for$
 
 #### mirai
 
-建议使用 `mirai-console-loader` 安装及配置 `mirai`
+建议使用 [mirai-console-loader](https://github.com/iTXTech/mirai-console-loader) 安装及配置 `mirai`
 
 + `mirai-console` `mirai-console-terminal` `mirai-core-all` 版本选择 `2.10.1`。
 + `mirai-api-http` 版本 `2.5.0`
@@ -171,7 +171,7 @@ pip install neovim
 pip install nest_asyncio
 ```
 
-
+<br/>
 
 ### 运行
 

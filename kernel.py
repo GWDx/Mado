@@ -38,7 +38,7 @@ def kernel(fullCommand, id):
         # ejs
         elif regularQ(firstLine, 'js'):
             fileName = writeFile(id, '.js', code)
-            ans = runCMD(f'nodejs {fileName}', id, options)
+            ans = runCMD(f'node {fileName}', id, options)
 
         # ExecuteMathematica (ema)
         # 好友仅 '-p' 也可输出图片
