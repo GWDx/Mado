@@ -15,7 +15,7 @@ def normalize(message):
             if 'Plain' in str(e.type):
                 valid.append(e)
             if 'Image' in str(e.type):
-                valid.append(Plain(f'Import[{e.url}]'))
+                valid.append(Plain(f'Import["{e.url}"]'))
         ans = MessageChain.create(valid).asDisplay()
 
     except:

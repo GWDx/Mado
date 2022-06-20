@@ -27,13 +27,13 @@
 
 ### 主要指令
 
-| 指令                           | 含义                                                         |
-| :----------------------------- | :----------------------------------------------------------- |
+| 指令                             | 含义                                                                                                    |
+|:------------------------------ |:----------------------------------------------------------------------------------------------------- |
 | **epy** *[options]*<br/>*code* | 执行 Python3 代码，<br />而 **ema**, **ecp**, **ejs**, **erb** 分别代表执行 Mathematica, C++, JavaScript, Ruby 代码 |
-| **cpy**<br />*code*            | 使用 GitHub Copilot 补全 Python 代码                         |
-| **co** *suffix*<br />*code*    | 使用 GitHub Copilot 补全后缀为 suffix 的文件                 |
-| **pip install** *package*      | Python 库安装                                                |
-| **help**                       | 查看帮助信息                                                 |
+| **cpy**<br />*code*            | 使用 GitHub Copilot 补全 Python 代码                                                                        |
+| **co** *suffix*<br />*code*    | 使用 GitHub Copilot 补全后缀为 suffix 的文件                                                                    |
+| **pip install** *package*      | Python 库安装                                                                                            |
+| **help**                       | 查看帮助信息                                                                                                |
 
 ### 选项
 
@@ -90,7 +90,7 @@ ema -p
 PolarPlot[Sin[5t/3], {t,0,3Pi}, ColorFunction->(Hue[#3]&), ImageSize->{900,900}]
 ```
 
-这段代码绘制 ![r=sin(5t/3)](https://render.githubusercontent.com/render/math?math=r(t)=\sin\frac{5t}3\ (0\leq t\leq 3\pi)) 的极坐标图像：
+这段代码绘制 $r(t)=\sin\frac{5t}3\ (0\leq t\leq 3\pi)$ 的极坐标图像：
 
 > <img src="image/1.png" alt="1" width="300">
 
@@ -103,8 +103,6 @@ ema -p
 Colorize@ MorphologicalComponents@ DeleteBorderComponents@
 <img src="image/2-1.png" alt="2-1" />
 </pre>
-
-
 
 该代码用不同的颜色区分黑白图片中的各个非边界的连通分量：
 
@@ -183,7 +181,7 @@ pip install nest_asyncio
 
 `clone` 此仓库后，打开一个终端，输入
 
-```
+```bash
 export NVIM_LISTEN_ADDRESS=/tmp/nvim
 mkdir temp
 nvim temp/test.py
@@ -223,4 +221,3 @@ python3 main.py
 + [pynvim](https://github.com/neovim/pynvim)
 
 同时感谢 [中国科学技术大学 Vlab 实验平台](https://vlab.ustc.edu.cn/) 提供 7*24 小时的运行环境。
-

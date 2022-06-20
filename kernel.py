@@ -1,3 +1,4 @@
+from PIL import Image as PILImage
 from graia.ariadne.message.element import Plain, Image
 
 from functions import *
@@ -74,10 +75,10 @@ def kernel(fullCommand, id):
         elif firstLine == 'help':
             ans = help.strip('\n')
 
-        # 好友默认执行 Mathematica
-        elif not '-' in id:
-            fileName = writeFile(id, '.wl', command)
-            ans = runCMD(mathematicaCMD(fileName), id, options)
+        # # 好友默认执行 Mathematica
+        # elif not '-' in id:
+        #     fileName = writeFile(id, '.wl', command)
+        #     ans = runCMD(mathematicaCMD(fileName), id, options)
 
         else:
             return None
@@ -108,8 +109,17 @@ def exportPicture(fileName, suffix, options, id):
     imgName = fileName.split('.')[0] + '.' + suffix.lower()
     CMD = mathematicaCMD(fileName) + f' -format {suffix} > {imgName}'
     runCMD(CMD, id, options)
-    print('>> ', imgName)
-    result = Image.fromLocalFile(imgName)
+    currentDirectory = os.getcwd()
+    imgPath = os.path.join(currentDirectory, imgName)
+    print('>> ', imgPath)
+    try:
+        PILImage.open(imgPath)
+        result = Image(url=f'file://{imgPath}')
+    except Exception as ex:
+        print('>> ', ex)
+        with open(imgPath, 'r') as f:
+            content = f.read()
+        result = Plain(content)
     return result
 
 
