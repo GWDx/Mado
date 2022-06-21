@@ -15,7 +15,7 @@ debugMode = len(sys.argv) > 1
 @broadcast.receiver("FriendMessage")
 async def friend_message_listener(message: MessageChain, app: Ariadne, friend: Friend):
     command = normalize(message)
-    result = kernel(command, str(friend.id))
+    result = await kernel(command, str(friend.id))
     if result:
         try:
             await app.sendFriendMessage(friend, MessageChain.create([result]))
@@ -27,7 +27,7 @@ async def friend_message_listener(message: MessageChain, app: Ariadne, friend: F
 @broadcast.receiver('GroupMessage')
 async def group_message_handler(message: MessageChain, app: Ariadne, group: Group, member: Member):
     command = normalize(message)
-    result = kernel(command, f'{group.id}-{member.id}')
+    result = await kernel(command, f'{group.id}-{member.id}')
     if debugMode:
         print(result)
         return

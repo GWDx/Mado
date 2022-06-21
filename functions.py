@@ -1,7 +1,7 @@
 import os
 import time
 import random
-import subprocess
+import asyncio
 
 
 def writeFile(id, suffix, code):
@@ -25,19 +25,23 @@ def writeFile(id, suffix, code):
     return fileName
 
 
-def runCMD(cmd, id, options):
+async def runCMD(cmd, id, options):
     timeLimit = 15
-    if cmd.startswith('pip'):
-        timeLimit = 45
     if '-t' in options and permissionQ(id):
         timeLimit = int(options.split('-t')[1].strip(' ').split(' ')[0])
 
-    ret = subprocess.run(cmd, timeout=timeLimit, encoding='utf-8', shell=True, capture_output=True)
-    ans = ret.stdout.strip('\n')
-    if ret.stderr != '':
-        ans = '####\n' + ret.stderr.strip('\n') + '\n####\n' + ret.stdout
-    if ret.returncode != 0 or ans == '' or random.randint(1, 100) == 1:
-        ans = f'>> returncode = {ret.returncode}\n' + ans
+    process = await asyncio.create_subprocess_shell(f'ulimit -t {timeLimit};{cmd}',
+                                                    stdout=asyncio.subprocess.PIPE,
+                                                    stderr=asyncio.subprocess.PIPE)
+    rawStdout, rawStderr = await process.communicate()
+    stdout = rawStdout.decode('utf-8')
+    stderr = rawStderr.decode('utf-8')
+    ans = stdout
+
+    if stderr:
+        ans = stderr
+    if process.returncode != 0 or ans == '' or random.randint(1, 100) == 1:
+        ans = f'>> returncode = {process.returncode}\n' + ans
     return ans.strip('\n')
 
 
