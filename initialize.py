@@ -2,7 +2,7 @@ from graia.broadcast import Broadcast
 from graia.ariadne.app import Ariadne
 from graia.ariadne.message.chain import MessageChain
 from graia.ariadne.message.element import Plain
-from graia.ariadne.model import Friend, MiraiSession
+from graia.ariadne.entry import config
 
 import asyncio
 
@@ -16,10 +16,10 @@ def normalize(message):
                 valid.append(e)
             if 'Image' in str(e.type):
                 valid.append(Plain(f'Import["{e.url}"]'))
-        ans = MessageChain.create(valid).asDisplay()
+        ans = MessageChain(valid).as_persistent_string()
 
     except:
-        ans = message.asDisplay()
+        ans = message.as_persistent_string()
         # raise RuntimeError('Interpret Error')
 
     return ans
@@ -29,13 +29,10 @@ loop = asyncio.get_event_loop()
 
 broadcast = Broadcast(loop=loop)
 
-app = Ariadne(
-    broadcast=broadcast,
-    connect_info=MiraiSession(
-        host="http://localhost:8080",  # 填入 HTTP API 服务运行的地址
-        verify_key="1234567890",  # 填入 verifyKey
-        account=2944791899,  # 你的机器人的 qq 号
-    ))
+app = Ariadne(config(
+    verify_key="ServiceVerifyKey",  # 填入 VerifyKey
+    account=2944791899,  # 你的机器人的 qq 号
+))
 
 help = '''
 [1] 代码执行

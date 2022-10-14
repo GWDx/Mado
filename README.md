@@ -12,6 +12,7 @@
 + 可以执行 python3, Mathematica, C++ 等代码
 + 对于 Mathematica，支持以图片格式输入代码、输出计算结果
 + 支持 GitHub Copilot 补全
++ 支持 Stable Diffusion 文字转图片
 + 可以给出错误提示，有执行时间限制
 + 支持好友访问和群访问
 
@@ -27,13 +28,14 @@
 
 ### 主要指令
 
-| 指令                             | 含义                                                                                                    |
-|:------------------------------ |:----------------------------------------------------------------------------------------------------- |
+| 指令                           | 含义                                                         |
+| :----------------------------- | :----------------------------------------------------------- |
 | **epy** *[options]*<br/>*code* | 执行 Python3 代码，<br />而 **ema**, **ecp**, **ejs**, **erb** 分别代表执行 Mathematica, C++, JavaScript, Ruby 代码 |
-| **cpy**<br />*code*            | 使用 GitHub Copilot 补全 Python 代码                                                                        |
-| **co** *suffix*<br />*code*    | 使用 GitHub Copilot 补全后缀为 suffix 的文件                                                                    |
-| **pip install** *package*      | Python 库安装                                                                                            |
-| **help**                       | 查看帮助信息                                                                                                |
+| **cpy**<br />*code*            | 使用 GitHub Copilot 补全 Python 代码                         |
+| **co** *suffix*<br />*code*    | 使用 GitHub Copilot 补全后缀为 suffix 的文件                 |
+| **nai**<br />*prompt*          | 使用 Stable Diffusion 文字转图片                             |
+| **pip install** *package*      | Python 库安装                                                |
+| **help**                       | 查看帮助信息                                                 |
 
 ### 选项
 
@@ -147,14 +149,14 @@ for$
 
 建议使用 [mirai-console-loader](https://github.com/iTXTech/mirai-console-loader) 安装及配置 `mirai`
 
-+ `mirai-console` `mirai-console-terminal` `mirai-core-all` 版本选择 `2.10.1`。
-+ `mirai-api-http` 版本 `2.5.0`
++ `mirai-console` `mirai-console-terminal` `mirai-core-all` 版本选择 `2.12.1`。
++ `mirai-api-http` 版本 `2.6.2`
 
 > 不保证在其他版本下是否可以正常运行
 
 #### Ariadne
 
-版本建议选择 `0.6.15`
+版本建议选择 `0.9.6`
 
 ```bash
 pip install graia-ariadne
@@ -169,6 +171,20 @@ pip install neovim
 pip install nest_asyncio
 ```
 
+#### Stable Diffusion
+
+> 总计会占用 10GB 的内存，且需要显卡
+
+配置 [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)，在本机 http://127.0.0.1:7860 启动
+
+配置 selenium，执行以下命令并安装浏览器的 driver
+
+```
+pip install selenium
+```
+
+更改 stable-diffusion-webui 输出图片的路径
+
 <br/>
 
 ### 运行
@@ -181,13 +197,21 @@ pip install nest_asyncio
 
 `clone` 此仓库后，打开一个终端，输入
 
+#### Copilot
+
 ```bash
 export NVIM_LISTEN_ADDRESS=/tmp/nvim
 mkdir temp
 nvim temp/test.py
 ```
 
-再打开一个终端，输入
+#### Stable Diffusion
+
+```bash
+py launch.py
+```
+
+#### 启动
 
 ```bash
 python3 main.py

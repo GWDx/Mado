@@ -1,9 +1,17 @@
 from PIL import Image as PILImage
 from graia.ariadne.message.element import Plain, Image
-
 from functions import *
 from initialize import help
-from getCopilotAnswer import getCopilotAnswer
+import sys
+
+startCopilot = '--copilot' in sys.argv
+startNAI = '--nai' in sys.argv
+debugMode = '--test' in sys.argv
+
+if startCopilot:
+    from getCopilotAnswer import getCopilotAnswer
+if startNAI:
+    from getStableDiffusionAnswer import getStableDiffusionAnswer
 
 
 async def kernel(fullCommand, id):
@@ -16,14 +24,20 @@ async def kernel(fullCommand, id):
     ans = ''
 
     try:
-        if task == 'cpy':
+        if startCopilot and task == 'cpy':
             fileName = writeFile(id, '.py', code)
             ans = getCopilotAnswer(code, fileName)
 
-        elif task == 'co':
+        elif startCopilot and task == 'co':
             suffix = options.split(' ')[0]
             fileName = writeFile(id, f'.{suffix}', code)
             ans = getCopilotAnswer(code, fileName)
+
+        elif startNAI and task == 'nai':
+            imgPath = getStableDiffusionAnswer(code)
+            PILImage.open(imgPath)
+            result = Image(url=f'file://{imgPath}')
+            return result
 
         # ExecutePython (epy)
         elif regularQ(firstLine, 'python3', 'py'):
